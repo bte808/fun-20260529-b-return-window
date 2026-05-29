@@ -3,6 +3,7 @@ import {
   buildChecklist,
   buildIcs,
   itemStatus,
+  nextAction,
   normalizeItem,
   sortItems,
   summarizeItems,
@@ -178,6 +179,7 @@ function renderItem(item) {
       : `${Math.abs(status.daysLeft)} day${status.daysLeft === -1 ? "" : "s"} late`;
   const condition = item.condition ? `<p>${escapeHtml(item.condition)}</p>` : "";
   const notes = item.notes ? `<p>${escapeHtml(item.notes)}</p>` : "";
+  const action = nextAction(item, todayIso);
 
   return `
     <article class="return-card ${item.done ? "is-done" : ""}" data-id="${escapeHtml(item.id)}">
@@ -192,6 +194,7 @@ function renderItem(item) {
         <span><strong>Place</strong>${escapeHtml(item.place || "Not set")}</span>
         <span><strong>Return path</strong>${escapeHtml(item.channel || "Check receipt")}</span>
       </div>
+      <p class="next-action"><strong>Next action</strong>${escapeHtml(action)}</p>
       <div class="notes">${condition}${notes}</div>
       <div class="card-actions">
         <button type="button" data-action="toggle">${item.done ? "Reopen" : "Mark done"}</button>

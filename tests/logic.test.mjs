@@ -5,6 +5,7 @@ import {
   buildIcs,
   itemDeadline,
   itemStatus,
+  nextAction,
   normalizeItem,
   summarizeItems
 } from "../src/logic.js";
@@ -51,6 +52,14 @@ test("builds a copyable return checklist", () => {
   assert.match(checklist, /Laptop sleeve/);
   assert.match(checklist, /Deadline: 2026-05-30/);
   assert.match(checklist, /1 day left/);
+  assert.match(checklist, /Next action: Act now/);
+});
+
+test("suggests a useful next action for open, urgent, expired, and done items", () => {
+  assert.match(nextAction(baseItem, "2026-05-21"), /trial by 2026-05-27/);
+  assert.match(nextAction(baseItem, "2026-05-29"), /Receipt counter/);
+  assert.match(nextAction(baseItem, "2026-06-02"), /Window closed on 2026-05-30/);
+  assert.match(nextAction({ ...baseItem, done: true }, "2026-05-29"), /Resolved/);
 });
 
 test("builds an importable calendar file", () => {

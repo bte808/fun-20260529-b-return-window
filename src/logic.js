@@ -90,6 +90,31 @@ export function itemStatus(item, todayIso = toIsoDate()) {
   return { label: "Open", tone: "open", daysLeft, deadline };
 }
 
+export function nextAction(item, todayIso = toIsoDate()) {
+  const status = itemStatus(item, todayIso);
+  const returnPath = item.channel || "the listed return path";
+
+  if (item.done) {
+    return "Resolved. Keep the record until the refund, exchange, or keep decision is confirmed.";
+  }
+
+  if (status.daysLeft < 0) {
+    return `Window closed on ${status.deadline}. Check exception policy, warranty, or resale before archiving.`;
+  }
+
+  if (status.daysLeft <= 2) {
+    return `Act now: pack the item, receipt, and required condition; use ${returnPath}.`;
+  }
+
+  if (status.daysLeft <= 7) {
+    return `Run the final keep-or-return test by ${addDays(status.deadline, -2)} so there is buffer.`;
+  }
+
+  return `Schedule a trial by ${addDays(status.deadline, -3)} and keep ${
+    item.condition ? "the required condition intact" : "packaging and proof of purchase together"
+  }.`;
+}
+
 export function sortItems(items, todayIso = toIsoDate()) {
   return [...items].sort((a, b) => {
     const statusA = itemStatus(a, todayIso);
@@ -118,7 +143,8 @@ export function buildChecklist(items, todayIso = toIsoDate()) {
       const details = [
         `- ${item.item} (${item.place || "unknown place"})`,
         `  Deadline: ${status.deadline} - ${left}`,
-        `  Return path: ${item.channel || "check receipt/store policy"}`
+        `  Return path: ${item.channel || "check receipt/store policy"}`,
+        `  Next action: ${nextAction(item, todayIso)}`
       ];
 
       if (item.condition) details.push(`  Condition: ${item.condition}`);

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "check": "node --check src/logic.js && node --check src/app.js",
     "test": "node --test",
     "serve": "python3 -m http.server 4173"
   },

@@ -313,6 +313,24 @@ textarea {
   letter-spacing: 0;
 }
 
+.next-action {
+  border-left: 4px solid var(--blue);
+  border-radius: 8px;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  color: #24344f;
+  background: #f5f8ff;
+  line-height: 1.45;
+}
+
+.next-action strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--blue-dark);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
 .notes {
   display: grid;
   gap: 6px;

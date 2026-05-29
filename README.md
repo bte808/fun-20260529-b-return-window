@@ -7,6 +7,7 @@ and calendar reminders before the last safe day slips by.
 
 - Add an item, store or owner, purchase date, return window, condition, and return path.
 - See urgent, soon, expired, open, and completed items sorted by deadline.
+- Get a plain-language next action for each item, including when to test it or act now.
 - Copy a ready-to-send checklist for a shopping trip or pickup errand.
 - Download an `.ics` calendar file with one-day-before alerts.
 - Keep data in `localStorage`; no login, account, server, or API key.
@@ -46,13 +47,13 @@ http://localhost:4173
 npm test
 ```
 
-The tests cover deadline math, status labels, checklist output, calendar export,
-and form validation.
+The tests cover deadline math, status labels, next-action cues, checklist output,
+calendar export, and form validation.
 
 ## Core workflow
 
 1. Add or edit a purchase.
-2. Check the next deadline and urgency summary.
+2. Check the next deadline, urgency summary, and next action.
 3. Copy the checklist before leaving home, or download the calendar reminder.
 4. Mark the item done after returning, keeping, or resolving it.
 
