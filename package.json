@@ -1,0 +1,11 @@
+{
+  "name": "fun-20260529-b-return-window",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "serve": "python3 -m http.server 4173"
+  },
+  "devDependencies": {}
+}
